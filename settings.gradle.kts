@@ -18,6 +18,7 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
+        maven("https://s01.oss.sonatype.org/content/repositories/snapshots")
         google {
             mavenContent {
                 includeGroupAndSubgroups("androidx")
@@ -26,8 +27,6 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev") // Often needed for Compose Multiplatform dev builds
-        maven("https://s01.oss.sonatype.org/content/repositories/snapshots")
     }
 }
 

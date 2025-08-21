@@ -54,14 +54,23 @@ kotlin {
     }
     
     sourceSets {
-        val wasmJsMain by getting
+        val wasmJsMain by getting{
+            dependencies {
+                implementation(libs.dautovicharis.charts.js)
+            }
+        }
 
         val desktopMain by getting
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
         
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.dautovicharis.charts.android)
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -78,6 +87,11 @@ kotlin {
             implementation(libs.slf4j.api)
             implementation(libs.dautovicharis.charts.snapshot)
             implementation(libs.kotlinx.time)
+            implementation(libs.view.model.compose)
+            runtimeOnly(libs.kotlinx.coroutinesSwing)
+            implementation(libs.ktor.client.core)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.slf4j.simple)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -128,7 +142,9 @@ dependencies {
 
 compose.desktop {
     application {
+        jvmArgs += listOf("-Dskiko.renderApi=SOFTWARE")
         mainClass = "com.x64dev.watcher.MainKt"
+
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
@@ -145,3 +161,5 @@ repositories {
     maven("https://s01.oss.sonatype.org/content/repositories/snapshots")
     // ... other repositories
 }
+
+
